@@ -1,5 +1,6 @@
 import { Fragment } from 'react';
 import { Menu, Transition } from '@headlessui/react';
+import { useNavigate } from 'react-router-dom';
 import {
   UserCircleIcon,
   Cog6ToothIcon,
@@ -9,9 +10,19 @@ import {
   BellIcon
 } from '@heroicons/react/24/outline';
 import { useThemeStore } from '../store/themeStore';
+import useAuthStore from '../store/authStore';
+import toast from 'react-hot-toast';
 
 export default function ProfileMenu() {
   const { isDark } = useThemeStore();
+  const { user, logout } = useAuthStore();
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    logout();
+    toast.success('Déconnexion réussie');
+    navigate('/login');
+  };
 
   return (
     <Menu as="div" className="relative">
@@ -43,58 +54,26 @@ export default function ProfileMenu() {
               Administrateur
             </p>
             <p className={`text-xs ${isDark ? 'text-gray-400' : 'text-gray-500'}`}>
-              admin@supnum.ma
+              {user?.email}
             </p>
           </div>
 
           <div className="py-1">
             <Menu.Item>
               {({ active }) => (
-                <button className={`flex items-center w-full px-4 py-2 text-sm ${
-                  active
-                    ? isDark 
-                      ? 'bg-gray-700 text-white' 
-                      : 'bg-gray-50 text-gray-900'
-                    : isDark
-                      ? 'text-gray-300'
-                      : 'text-gray-700'
-                }`}>
+                <button 
+                  onClick={() => navigate('/profile')}
+                  className={`flex items-center w-full px-4 py-2 text-sm ${
+                    active
+                      ? isDark 
+                        ? 'bg-gray-700 text-white' 
+                        : 'bg-gray-50 text-gray-900'
+                      : isDark
+                        ? 'text-gray-300'
+                        : 'text-gray-700'
+                  }`}>
                   <UserIcon className="mr-3 h-5 w-5" />
                   Mon profil
-                </button>
-              )}
-            </Menu.Item>
-
-            <Menu.Item>
-              {({ active }) => (
-                <button className={`flex items-center w-full px-4 py-2 text-sm ${
-                  active
-                    ? isDark 
-                      ? 'bg-gray-700 text-white' 
-                      : 'bg-gray-50 text-gray-900'
-                    : isDark
-                      ? 'text-gray-300'
-                      : 'text-gray-700'
-                }`}>
-                  <BellIcon className="mr-3 h-5 w-5" />
-                  Notifications
-                </button>
-              )}
-            </Menu.Item>
-
-            <Menu.Item>
-              {({ active }) => (
-                <button className={`flex items-center w-full px-4 py-2 text-sm ${
-                  active
-                    ? isDark 
-                      ? 'bg-gray-700 text-white' 
-                      : 'bg-gray-50 text-gray-900'
-                    : isDark
-                      ? 'text-gray-300'
-                      : 'text-gray-700'
-                }`}>
-                  <KeyIcon className="mr-3 h-5 w-5" />
-                  Mot de passe
                 </button>
               )}
             </Menu.Item>
@@ -103,15 +82,18 @@ export default function ProfileMenu() {
           <div className="py-1 border-t border-gray-200 dark:border-gray-700">
             <Menu.Item>
               {({ active }) => (
-                <button className={`flex items-center w-full px-4 py-2 text-sm ${
-                  active
-                    ? isDark 
-                      ? 'bg-gray-700 text-red-300' 
-                      : 'bg-gray-50 text-red-700'
-                    : isDark
-                      ? 'text-red-400'
-                      : 'text-red-600'
-                }`}>
+                <button
+                  onClick={handleLogout}
+                  className={`flex items-center w-full px-4 py-2 text-sm ${
+                    active
+                      ? isDark 
+                        ? 'bg-gray-700 text-red-300' 
+                        : 'bg-gray-50 text-red-700'
+                      : isDark
+                        ? 'text-red-400'
+                        : 'text-red-600'
+                  }`}
+                >
                   <ArrowRightOnRectangleIcon className="mr-3 h-5 w-5" />
                   Se déconnecter
                 </button>

@@ -63,14 +63,14 @@ export const matieres: Matiere[] = [
 export const enseignants: Enseignant[] = [
   { 
     id: 1, 
-    nom: 'John Doe', 
-    email: 'john.doe@supnum.mr',
+    nom: 'Saucrate Dahmed', 
+    email: 'saucrate.dahmed@supnum.mr',
     specialite: 'Mathématiques'
   },
   { 
     id: 2, 
-    nom: 'Jane Smith', 
-    email: 'jane.smith@supnum.mr',
+    nom: 'Ahmedou Naha', 
+    email: 'ahmedou.naha@supnum.mr',
     specialite: 'Informatique'
   }
 ];

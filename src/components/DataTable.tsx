@@ -4,6 +4,7 @@ import {
   ChevronRightIcon,
   ChevronUpDownIcon,
 } from '@heroicons/react/24/outline';
+import { useThemeStore } from '../store/themeStore';
 
 interface Column<T> {
   header: string;
@@ -28,6 +29,7 @@ export default function DataTable<T extends Record<string, any>>({
   const [currentPage, setCurrentPage] = useState(1);
   const [sortColumn, setSortColumn] = useState<keyof T | null>(null);
   const [sortDirection, setSortDirection] = useState<'asc' | 'desc'>('asc');
+  const { isDark } = useThemeStore();
 
   const itemsPerPage = 10;
 
@@ -67,38 +69,46 @@ export default function DataTable<T extends Record<string, any>>({
   };
 
   return (
-    <div className="overflow-x-auto">
-      <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
-        <thead className="bg-gray-50 dark:bg-gray-800">
-          <tr>
+    <div className={`overflow-x-auto rounded-xl ${isDark ? 'bg-gray-800' : 'bg-white'} shadow-md`}>
+      <table className={`min-w-full divide-y ${isDark ? 'divide-gray-700' : 'divide-gray-200'}`}>
+        <thead>
+          <tr className={isDark ? 'bg-gray-900/50' : 'bg-gray-50'}>
             {columns.map((column, index) => (
               <th
                 key={index}
-                className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider cursor-pointer"
+                className={`px-6 py-3 text-left text-xs font-medium ${
+                  isDark ? 'text-gray-300' : 'text-gray-500'
+                } uppercase tracking-wider cursor-pointer`}
                 onClick={() => handleSort(column)}
               >
                 <div className="flex items-center space-x-1">
                   <span>{column.header}</span>
                   {column.sortable && (
-                    <ChevronUpDownIcon className="w-4 h-4" />
+                    <ChevronUpDownIcon className={`w-4 h-4 ${
+                      isDark ? 'text-gray-500' : 'text-gray-400'
+                    }`} />
                   )}
                 </div>
               </th>
             ))}
-            {(onEdit || onDelete) && (
-              <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
-                Actions
-              </th>
-            )}
           </tr>
         </thead>
-        <tbody className="bg-white dark:bg-gray-900 divide-y divide-gray-200 dark:divide-gray-700">
+        <tbody className={`divide-y ${isDark ? 'divide-gray-700' : 'divide-gray-200'}`}>
           {currentData.map((item, rowIndex) => (
-            <tr key={rowIndex}>
+            <tr 
+              key={rowIndex} 
+              className={`${
+                isDark
+                  ? 'even:bg-gray-800 odd:bg-gray-700 hover:bg-gray-600'
+                  : 'even:bg-white odd:bg-gray-50 hover:bg-gray-100'
+              } transition-colors duration-200`}
+            >
               {columns.map((column, colIndex) => (
                 <td
                   key={colIndex}
-                  className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-gray-100"
+                  className={`px-6 py-4 whitespace-nowrap text-sm ${
+                    isDark ? 'text-gray-200' : 'text-gray-900'
+                  }`}
                 >
                   {column.render
                     ? column.render(item)
@@ -107,47 +117,35 @@ export default function DataTable<T extends Record<string, any>>({
                     : item[column.accessor]}
                 </td>
               ))}
-              {(onEdit || onDelete) && (
-                <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                  <div className="flex justify-end space-x-2">
-                    {onEdit && (
-                      <button
-                        onClick={() => onEdit(item)}
-                        className="text-primary-600 hover:text-primary-900"
-                      >
-                        Modifier
-                      </button>
-                    )}
-                    {onDelete && (
-                      <button
-                        onClick={() => onDelete(item)}
-                        className="text-red-600 hover:text-red-900"
-                      >
-                        Supprimer
-                      </button>
-                    )}
-                  </div>
-                </td>
-              )}
             </tr>
           ))}
         </tbody>
       </table>
-      <div className="flex items-center justify-between px-6 py-3 bg-white dark:bg-gray-900">
+      <div className={`flex items-center justify-between px-6 py-3 border-t ${
+        isDark ? 'border-gray-700' : 'border-gray-200'
+      }`}>
         <button
           onClick={() => setCurrentPage(Math.max(1, currentPage - 1))}
           disabled={currentPage === 1}
-          className="disabled:opacity-50"
+          className={`disabled:opacity-50 ${
+            isDark 
+              ? 'text-gray-400 hover:text-gray-300' 
+              : 'text-gray-500 hover:text-gray-700'
+          }`}
         >
           <ChevronLeftIcon className="w-5 h-5" />
         </button>
-        <span className="text-sm text-gray-700 dark:text-gray-300">
+        <span className={isDark ? 'text-gray-300' : 'text-gray-700'}>
           Page {currentPage} of {totalPages}
         </span>
         <button
           onClick={() => setCurrentPage(Math.min(totalPages, currentPage + 1))}
           disabled={currentPage === totalPages}
-          className="disabled:opacity-50"
+          className={`disabled:opacity-50 ${
+            isDark 
+              ? 'text-gray-400 hover:text-gray-300' 
+              : 'text-gray-500 hover:text-gray-700'
+          }`}
         >
           <ChevronRightIcon className="w-5 h-5" />
         </button>

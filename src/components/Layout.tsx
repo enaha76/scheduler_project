@@ -48,7 +48,7 @@ export default function Layout({ children }: LayoutProps) {
             leaveFrom="opacity-100"
             leaveTo="opacity-0"
           >
-            <div className="fixed inset-0 bg-gray-900/80" />
+            <div className="fixed inset-0 bg-black/80" />
           </Transition.Child>
 
           <div className="fixed inset-0 flex">
@@ -62,13 +62,13 @@ export default function Layout({ children }: LayoutProps) {
               leaveTo="-translate-x-full"
             >
               <Dialog.Panel className="relative mr-16 flex w-full max-w-xs flex-1">
-                <div className={`flex grow flex-col gap-y-5 ${
-                  isDark ? 'bg-gray-900' : 'bg-white'
-                } md:scrollbar-none`}>
-                  <div className="flex h-16 shrink-0 items-center px-6 pt-3">
+                <div className={`flex grow flex-col gap-y-5 overflow-y-auto ${
+                  isDark ? 'bg-gray-900 border-r border-gray-800' : 'bg-white'
+                } px-6 pb-4 md:scrollbar-none`}>
+                  <div className="flex h-16 shrink-0 items-center pt-3">
                     <Logo />
                   </div>
-                  <nav className="flex flex-1 flex-col px-6">
+                  <nav className="flex flex-1 flex-col">
                     <ul role="list" className="flex flex-1 flex-col gap-y-7">
                       <li>
                         <ul role="list" className="-mx-2 space-y-1">
@@ -77,22 +77,26 @@ export default function Layout({ children }: LayoutProps) {
                               <Link
                                 to={item.href}
                                 className={`
-                                  group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold
+                                  group flex gap-x-3 rounded-xl p-2 text-sm leading-6 font-semibold transition-all duration-300
                                   ${location.pathname === item.href
                                     ? isDark 
-                                      ? 'bg-gray-700 text-white'
-                                      : 'bg-supnum-blue-light text-supnum-blue'
+                                      ? 'bg-gray-800 text-white shadow-lg shadow-gray-900/20' 
+                                      : 'bg-gradient-to-r from-supnum-blue/10 to-supnum-teal/10 text-supnum-blue'
                                     : isDark
-                                      ? 'text-gray-300 hover:bg-gray-700 hover:text-white'
-                                      : 'text-gray-700 hover:text-supnum-blue hover:bg-supnum-gray-light'
+                                      ? 'text-gray-400 hover:bg-gray-800/50 hover:text-white'
+                                      : 'text-gray-700 hover:bg-gray-50 hover:text-supnum-blue'
                                   }
                                 `}
                               >
                                 <item.icon
-                                  className={`h-6 w-6 shrink-0 ${
+                                  className={`h-6 w-6 shrink-0 transition-all duration-300 ${
                                     location.pathname === item.href 
-                                      ? isDark ? 'text-white' : 'text-supnum-blue'
-                                      : isDark ? 'text-gray-400' : 'text-gray-400'
+                                      ? isDark 
+                                        ? 'text-white' 
+                                        : 'text-supnum-blue'
+                                      : isDark 
+                                        ? 'text-gray-400 group-hover:text-white' 
+                                        : 'text-gray-400 group-hover:text-supnum-blue'
                                   }`}
                                   aria-hidden="true"
                                 />
@@ -113,11 +117,11 @@ export default function Layout({ children }: LayoutProps) {
 
       {/* Static sidebar for desktop */}
       <div className="hidden lg:fixed lg:inset-y-0 lg:z-50 lg:flex lg:w-72 lg:flex-col">
-        <div className={`flex grow flex-col gap-y-5 border-r ${
+        <div className={`flex grow flex-col gap-y-5 overflow-y-auto border-r ${
           isDark 
             ? 'bg-gray-900 border-gray-800 scrollbar-dark' 
             : 'bg-white border-gray-200 scrollbar-light'
-        } overflow-y-auto`}>
+        }`}>
           <div className="flex h-16 shrink-0 items-center px-6 pt-3">
             <Logo />
           </div>
@@ -130,22 +134,26 @@ export default function Layout({ children }: LayoutProps) {
                       <Link
                         to={item.href}
                         className={`
-                          group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold transition-all duration-200
+                          group flex gap-x-3 rounded-xl p-2 text-sm leading-6 font-semibold transition-all duration-300
                           ${location.pathname === item.href
                             ? isDark 
-                              ? 'bg-gray-800 text-white'
-                              : 'bg-supnum-blue-light text-supnum-blue'
+                              ? 'bg-gray-800 text-white shadow-lg shadow-gray-900/20' 
+                              : 'bg-gradient-to-r from-supnum-blue/10 to-supnum-teal/10 text-supnum-blue'
                             : isDark
-                              ? 'text-gray-400 hover:bg-gray-800 hover:text-white'
-                              : 'text-gray-600 hover:text-supnum-blue hover:bg-gray-50'
+                              ? 'text-gray-400 hover:bg-gray-800/50 hover:text-white'
+                              : 'text-gray-700 hover:bg-gray-50 hover:text-supnum-blue'
                           }
                         `}
                       >
                         <item.icon
-                          className={`h-6 w-6 shrink-0 transition-colors duration-200 ${
+                          className={`h-6 w-6 shrink-0 transition-all duration-300 ${
                             location.pathname === item.href 
-                              ? isDark ? 'text-white' : 'text-supnum-blue'
-                              : isDark ? 'text-gray-400' : 'text-gray-400'
+                              ? isDark 
+                                ? 'text-white' 
+                                : 'text-supnum-blue'
+                              : isDark 
+                                ? 'text-gray-400 group-hover:text-white' 
+                                : 'text-gray-400 group-hover:text-supnum-blue'
                           }`}
                           aria-hidden="true"
                         />

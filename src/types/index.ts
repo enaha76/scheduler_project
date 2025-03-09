@@ -62,6 +62,7 @@ export interface Planning {
   creneau: number;
   semaine: number;
   typeCours: TypeCours;
+  salle: Salle;
 }
 
 export interface Salle {
