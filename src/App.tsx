@@ -2,6 +2,7 @@ import React, { ReactElement } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate, Outlet } from 'react-router-dom';
 import { Toaster } from 'react-hot-toast';
 import Layout from './components/Layout';
+import StudentLayout from './components/student/StudentLayout';
 import Dashboard from './pages/Dashboard';
 import Matieres from './pages/Matieres';
 import Enseignants from './pages/Enseignants';
@@ -13,6 +14,7 @@ import useAuthStore from './store/authStore';
 import Cours from './pages/Cours';
 import Salles from './pages/Salles';
 import Utilisateurs from './pages/Utilisateurs';
+import StudentWelcome from './pages/student/Welcome';
 
 interface RouteWrapperProps {
   children: ReactElement;
@@ -46,6 +48,14 @@ function PrivateLayout(): ReactElement {
   );
 }
 
+function StudentPrivateLayout(): ReactElement {
+  return (
+    <StudentLayout>
+      <Outlet />
+    </StudentLayout>
+  );
+}
+
 export default function App() {
   return (
     <Router>
@@ -57,6 +67,7 @@ export default function App() {
           </PublicRoute>
         } />
         
+        {/* Admin Routes */}
         <Route element={
           <PrivateRoute>
             <PrivateLayout />
@@ -67,12 +78,18 @@ export default function App() {
           <Route path="enseignants" element={<Enseignants />} />
           <Route path="groupes" element={<Groupes />} />
           <Route path="planning" element={<Planning />} />
-          <Route path="emploi-du-temps" element={<Planning />} />
           <Route path="cours" element={<Cours />} />
           <Route path="salles" element={<Salles />} />
           <Route path="utilisateurs" element={<Utilisateurs />} />
           <Route path="profile" element={<Profile />} />
         </Route>
+
+        {/* Student Routes */}
+        <Route path="student" element={
+          <PrivateRoute>
+            <StudentWelcome />
+          </PrivateRoute>
+        } />
 
         <Route path="*" element={<Navigate to="/" />} />
       </Routes>
