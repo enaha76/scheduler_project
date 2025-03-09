@@ -1,13 +1,203 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Theme transition */
+* {
+  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 400ms;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+/* Remove transition for specific elements where it might cause issues */
+.no-theme-transition {
+  transition: none !important;
+}
+
+/* Theme switch animation */
+.theme-switch-enter {
+  transform: scale(0.95);
+  opacity: 0;
+}
+.theme-switch-enter-active {
+  transform: scale(1);
+  opacity: 1;
+  transition: all 200ms ease-out;
+}
+.theme-switch-exit {
+  transform: scale(1);
+  opacity: 1;
+}
+.theme-switch-exit-active {
+  transform: scale(0.95);
+  opacity: 0;
+  transition: all 200ms ease-in;
+}
+
+/* Styles personnalisés pour react-big-calendar */
+.rbc-calendar {
+  @apply font-sans bg-supnum-gray-light;
+}
+
+.rbc-header {
+  @apply bg-white py-2 font-semibold text-supnum-blue;
+}
+
+.rbc-event {
+  @apply bg-supnum-blue text-white !important;
+}
+
+.rbc-event.rbc-selected {
+  @apply bg-primary-700 !important;
+}
+
+.rbc-today {
+  @apply bg-supnum-blue-light !important;
+}
+
+.rbc-button-link {
+  @apply text-supnum-blue;
+}
+
+.rbc-show-more {
+  @apply text-supnum-teal font-semibold;
+}
+
+/* Styles pour les boutons et les formulaires */
+.btn-primary {
+  @apply rounded-md bg-supnum-blue px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-primary-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-supnum-blue transition-colors;
+}
+
+.btn-secondary {
+  @apply rounded-md bg-supnum-green px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-secondary-600 transition-colors;
+}
+
+.btn-outline {
+  @apply rounded-md border border-supnum-blue bg-white px-3 py-2 text-sm font-semibold text-supnum-blue shadow-sm hover:bg-supnum-gray-light transition-colors;
+}
+
+.form-input {
+  @apply mt-1 block w-full rounded-md border-supnum-blue-light shadow-sm focus:border-supnum-blue focus:ring-supnum-blue sm:text-sm;
+}
+
+.form-label {
+  @apply block text-sm font-medium text-supnum-blue;
+}
+
+/* Styles de navigation */
+.nav-link {
+  @apply text-supnum-blue hover:text-supnum-teal transition-colors;
+}
+
+.nav-link.active {
+  @apply text-supnum-green font-semibold;
+}
+
+/* Styles de carte */
+.card {
+  @apply bg-white rounded-lg shadow-sm border border-supnum-blue-light p-4;
+}
+
+.card-header {
+  @apply text-lg font-semibold text-supnum-blue mb-4;
+}
+
+/* Animation de transition pour les modales */
+.modal-enter {
+  @apply transition-opacity duration-300 ease-out;
+}
+
+.modal-enter-from {
+  @apply opacity-0;
+}
+
+.modal-enter-to {
+  @apply opacity-100;
+}
+
+.modal-leave {
+  @apply transition-opacity duration-200 ease-in;
+}
+
+.modal-leave-from {
+  @apply opacity-100;
+}
+
+.modal-leave-to {
+  @apply opacity-0;
+}
+
+/* Styles de tableau */
+.table-header {
+  @apply bg-supnum-gray-light text-supnum-blue;
+}
+
+.table-row {
+  @apply hover:bg-supnum-blue-light transition-colors;
+}
+
+/* Styles de badge */
+.badge {
+  @apply inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium;
+}
+
+.badge-blue {
+  @apply bg-primary-100 text-primary-700;
+}
+
+.badge-green {
+  @apply bg-secondary-100 text-secondary-700;
+}
+
+.badge-teal {
+  @apply bg-accent-100 text-accent-700;
+}
+
+/* Custom scrollbars for desktop only */
+@media (min-width: 1024px) {
+  .scrollbar-light::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  .scrollbar-light::-webkit-scrollbar-track {
+    background: #f1f1f1;
+  }
+
+  .scrollbar-light::-webkit-scrollbar-thumb {
+    background: #d1d5db;
+    border-radius: 3px;
+  }
+
+  .scrollbar-light::-webkit-scrollbar-thumb:hover {
+    background: #9ca3af;
+  }
+
+  .scrollbar-dark::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  .scrollbar-dark::-webkit-scrollbar-track {
+    background: #1f2937;
+  }
+
+  .scrollbar-dark::-webkit-scrollbar-thumb {
+    background: #4b5563;
+    border-radius: 3px;
+  }
+
+  .scrollbar-dark::-webkit-scrollbar-thumb:hover {
+    background: #6b7280;
+  }
+}
+
+/* Hide scrollbar for mobile */
+@media (max-width: 1023px) {
+  * {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+  
+  *::-webkit-scrollbar {
+    display: none;
+  }
 }

@@ -1,26 +1,45 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { Toaster } from 'react-hot-toast';
+import Layout from './components/Layout';
+import Dashboard from './pages/Dashboard';
+import Matieres from './pages/Matieres';
+import Enseignants from './pages/Enseignants';
+import Groupes from './pages/Groupes';
+import Planning from './pages/Planning';
 
-function App() {
+export default function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <Toaster
+        position="top-right"
+        toastOptions={{
+          duration: 3000,
+          style: {
+            background: '#333',
+            color: '#fff',
+          },
+          success: {
+            style: {
+              background: '#059669',
+            },
+          },
+          error: {
+            style: {
+              background: '#DC2626',
+            },
+          },
+        }}
+      />
+      <Layout>
+        <Routes>
+          <Route path="/" element={<Dashboard />} />
+          <Route path="/matieres" element={<Matieres />} />
+          <Route path="/enseignants" element={<Enseignants />} />
+          <Route path="/groupes" element={<Groupes />} />
+          <Route path="/planning" element={<Planning />} />
+        </Routes>
+      </Layout>
+    </Router>
   );
 }
-
-export default App;
