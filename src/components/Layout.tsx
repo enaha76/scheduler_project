@@ -9,6 +9,8 @@ import {
   UserGroupIcon,
   AcademicCapIcon,
   CalendarIcon,
+  BuildingOfficeIcon,
+  UserIcon,
 } from '@heroicons/react/24/outline'
 import { useThemeStore } from '../store/themeStore'
 import Logo from './Logo'
@@ -22,6 +24,9 @@ const navigation = [
   { name: 'Enseignants', href: '/enseignants', icon: AcademicCapIcon },
   { name: 'Groupes', href: '/groupes', icon: UserGroupIcon },
   { name: 'Planning', href: '/planning', icon: CalendarIcon },
+  { name: 'Cours', href: '/cours', icon: BookOpenIcon },
+  { name: 'Salles', href: '/salles', icon: BuildingOfficeIcon },
+  { name: 'Utilisateurs', href: '/utilisateurs', icon: UserIcon },
 ]
 
 interface LayoutProps {

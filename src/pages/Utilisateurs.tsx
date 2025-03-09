@@ -54,8 +54,8 @@ const ROLES: Role[] = [
 
 const SAMPLE_USER: User = {
   id: 1,
-  username: 'John Doe',
-  email: 'john.doe@example.com',
+  username: 'Saucrate Dahmed',
+  email: 'saucrate.dahmed@gmail.com',
   roleId: 1,
   isActive: true,
   lastLogin: '12/03/2024'
