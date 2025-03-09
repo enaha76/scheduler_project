@@ -141,18 +141,18 @@ export default function Utilisateurs() {
       </div>
 
       {/* User List */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <div className={`${
           isDark ? 'bg-gray-800 hover:bg-gray-700' : 'bg-white hover:bg-gray-50'
-        } rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-all duration-300`}>
+        } rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-all duration-300 w-full`}>
           <div className="p-4 sm:p-6">
-            <div className="flex justify-between items-start mb-4">
-              <div className="flex items-center">
-                <UserCircleIcon className={`h-8 w-8 ${
+            <div className="flex flex-col sm:flex-row sm:items-start gap-4 sm:gap-0">
+              <div className="flex items-center flex-1">
+                <UserCircleIcon className={`h-12 w-12 ${
                   isDark ? 'text-gray-400' : 'text-gray-500'
                 }`} />
-                <div className="ml-3">
-                  <h3 className={`text-base sm:text-lg font-semibold ${
+                <div className="ml-4 flex-1">
+                  <h3 className={`text-lg font-semibold ${
                     isDark ? 'text-white' : 'text-gray-900'
                   }`}>
                     {SAMPLE_USER.username}
@@ -164,47 +164,49 @@ export default function Utilisateurs() {
                   </p>
                 </div>
               </div>
-              <div className="flex space-x-2">
+              <div className="flex sm:flex-col gap-2 sm:gap-3">
                 <button
                   onClick={() => handleOpenModal(SAMPLE_USER)}
-                  className={`${
-                    isDark ? 'text-gray-300 hover:text-white' : 'text-gray-600 hover:text-gray-900'
+                  className={`flex-1 sm:flex-none p-2.5 rounded-lg ${
+                    isDark 
+                      ? 'text-gray-300 hover:text-white hover:bg-gray-600' 
+                      : 'text-gray-600 hover:text-gray-900 hover:bg-gray-100'
                   } transition-colors duration-200`}
                 >
                   <PencilIcon className="h-5 w-5" />
                 </button>
                 <button
                   onClick={() => handleDeleteClick(SAMPLE_USER)}
-                  className="text-red-500 hover:text-red-600 transition-colors duration-200"
+                  className="flex-1 sm:flex-none p-2.5 rounded-lg text-red-500 hover:text-red-600 hover:bg-red-50 dark:hover:bg-red-500/10 transition-colors duration-200"
                 >
                   <TrashIcon className="h-5 w-5" />
                 </button>
               </div>
             </div>
 
-            <div className="space-y-3">
+            <div className="space-y-4 mt-6">
               <div className={`flex items-center text-sm ${
                 isDark ? 'text-gray-300' : 'text-gray-600'
               }`}>
-                <ShieldCheckIcon className="h-5 w-5 mr-2" />
+                <ShieldCheckIcon className="h-5 w-5 mr-3 flex-shrink-0" />
                 <span>{ROLES.find(r => r.id === SAMPLE_USER.roleId)?.name || 'Rôle inconnu'}</span>
               </div>
               <div className={`flex items-center text-sm ${
                 isDark ? 'text-gray-300' : 'text-gray-600'
               }`}>
-                <KeyIcon className="h-5 w-5 mr-2" />
+                <KeyIcon className="h-5 w-5 mr-3 flex-shrink-0" />
                 <span>Dernière connexion: {SAMPLE_USER.lastLogin}</span>
               </div>
-            </div>
 
-            <div className="mt-4">
-              <span className={`inline-flex items-center rounded-full px-2 py-1 text-xs font-medium ${
-                SAMPLE_USER.isActive
-                  ? 'bg-green-100 text-green-700 dark:bg-green-900 dark:text-green-300'
-                  : 'bg-red-100 text-red-700 dark:bg-red-900 dark:text-red-300'
-              }`}>
-                {SAMPLE_USER.isActive ? 'Actif' : 'Inactif'}
-              </span>
+              <div className="pt-2">
+                <span className={`inline-flex items-center rounded-full px-3 py-1 text-sm font-medium ${
+                  SAMPLE_USER.isActive
+                    ? 'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400'
+                    : 'bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400'
+                }`}>
+                  {SAMPLE_USER.isActive ? 'Actif' : 'Inactif'}
+                </span>
+              </div>
             </div>
           </div>
         </div>

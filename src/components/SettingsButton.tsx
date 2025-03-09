@@ -4,9 +4,6 @@ import {
   Cog6ToothIcon,
   SunIcon,
   MoonIcon,
-  LanguageIcon,
-  BellIcon,
-  ComputerDesktopIcon
 } from '@heroicons/react/24/outline';
 import { useThemeStore } from '../store/themeStore';
 
@@ -44,7 +41,7 @@ export default function SettingsMenu() {
           : 'bg-gray-100 text-gray-700 hover:bg-gray-200 hover:text-gray-900'
       } group`}>
         <Cog6ToothIcon className="w-5 h-5 transition-transform duration-700 ease-in-out group-hover:rotate-180" />
-        <span className="ml-2 text-sm font-medium hidden sm:block">Paramètres</span>
+        <span className="ml-2 text-sm font-medium hidden sm:block">Thème</span>
       </Menu.Button>
 
       <Transition
@@ -56,86 +53,41 @@ export default function SettingsMenu() {
         leaveFrom="transform opacity-100 scale-100"
         leaveTo="transform opacity-0 scale-95"
       >
-        <Menu.Items className={`absolute right-0 mt-2 w-56 rounded-xl ${
+        <Menu.Items className={`absolute right-0 mt-2 w-48 rounded-xl ${
           isDark 
             ? 'bg-gray-800 border border-gray-700' 
             : 'bg-white border border-gray-200'
         } shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none py-2 z-50`}>
-          <div className="px-4 py-2 border-b border-gray-200 dark:border-gray-700">
-            <p className={`text-sm font-medium ${isDark ? 'text-white' : 'text-gray-900'}`}>
-              Paramètres du système
-            </p>
-            <p className={`text-xs ${isDark ? 'text-gray-400' : 'text-gray-500'}`}>
-              Personnalisez votre expérience
-            </p>
-          </div>
-
-          <div className="py-1">
-            <Menu.Item>
-              {({ active }) => (
-                <button
-                  onClick={handleThemeToggle}
-                  className={`flex items-center w-full px-4 py-2 text-sm ${
-                    active
-                      ? isDark 
-                        ? 'bg-gray-700 text-white' 
-                        : 'bg-gray-50 text-gray-900'
-                      : isDark
-                        ? 'text-gray-300'
-                        : 'text-gray-700'
-                  } group relative overflow-hidden`}
-                >
-                  <div className="flex items-center relative z-10">
-                    <div className="relative">
-                      <div className="absolute inset-0 flex items-center justify-center transition-opacity duration-300">
-                        {isDark ? (
-                          <SunIcon className="h-5 w-5 mr-3 transition-transform duration-500 group-hover:rotate-90" />
-                        ) : (
-                          <MoonIcon className="h-5 w-5 mr-3 transition-transform duration-500 group-hover:-rotate-90" />
-                        )}
-                      </div>
-                      <div className="w-5 h-5 mr-3" /> {/* Spacer */}
+          <Menu.Item>
+            {({ active }) => (
+              <button
+                onClick={handleThemeToggle}
+                className={`flex items-center w-full px-4 py-2 text-sm ${
+                  active
+                    ? isDark 
+                      ? 'bg-gray-700 text-white' 
+                      : 'bg-gray-50 text-gray-900'
+                    : isDark
+                      ? 'text-gray-300'
+                      : 'text-gray-700'
+                } group relative overflow-hidden`}
+              >
+                <div className="flex items-center relative z-10">
+                  <div className="relative">
+                    <div className="absolute inset-0 flex items-center justify-center transition-opacity duration-300">
+                      {isDark ? (
+                        <SunIcon className="h-5 w-5 mr-3 transition-transform duration-500 group-hover:rotate-90" />
+                      ) : (
+                        <MoonIcon className="h-5 w-5 mr-3 transition-transform duration-500 group-hover:-rotate-90" />
+                      )}
                     </div>
-                    <span>Thème {isDark ? 'clair' : 'sombre'}</span>
+                    <div className="w-5 h-5 mr-3" /> {/* Spacer */}
                   </div>
-                </button>
-              )}
-            </Menu.Item>
-
-            <Menu.Item>
-              {({ active }) => (
-                <button className={`flex items-center w-full px-4 py-2 text-sm ${
-                  active
-                    ? isDark 
-                      ? 'bg-gray-700 text-white' 
-                      : 'bg-gray-50 text-gray-900'
-                    : isDark
-                      ? 'text-gray-300'
-                      : 'text-gray-700'
-                }`}>
-                  <BellIcon className="mr-3 h-5 w-5" />
-                  Notifications
-                </button>
-              )}
-            </Menu.Item>
-
-            <Menu.Item>
-              {({ active }) => (
-                <button className={`flex items-center w-full px-4 py-2 text-sm ${
-                  active
-                    ? isDark 
-                      ? 'bg-gray-700 text-white' 
-                      : 'bg-gray-50 text-gray-900'
-                    : isDark
-                      ? 'text-gray-300'
-                      : 'text-gray-700'
-                }`}>
-                  <ComputerDesktopIcon className="mr-3 h-5 w-5" />
-                  Système
-                </button>
-              )}
-            </Menu.Item>
-          </div>
+                  <span>Thème {isDark ? 'clair' : 'sombre'}</span>
+                </div>
+              </button>
+            )}
+          </Menu.Item>
         </Menu.Items>
       </Transition>
     </Menu>
